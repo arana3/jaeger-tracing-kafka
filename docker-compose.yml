@@ -23,7 +23,7 @@ services:
     restart: always
 
   zookeeper:
-    image: confluentinc/cp-zookeeper
+    image: confluentinc/cp-zookeeper:5.2.2
     hostname: zookeeper
     container_name: zookeeper
     ports:
@@ -33,7 +33,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   broker:
-    image: confluentinc/cp-enterprise-kafka
+    image: confluentinc/cp-enterprise-kafka:5.2.2
     hostname: broker
     container_name: broker
     depends_on:
@@ -65,7 +65,7 @@ services:
       - spring.kafka.bootstrap-servers=broker:29092
 
   connect:
-    image: confluentinc/cp-kafka-connect
+    image: confluentinc/cp-kafka-connect:5.2.2
     hostname: connect
     container_name: connect
     depends_on:
@@ -97,7 +97,7 @@ services:
       CONNECT_LOG4J_LOGGERS: org.apache.zookeeper=ERROR,org.I0Itec.zkclient=ERROR,org.reflections=ERROR
 
   rest-proxy:
-    image: confluentinc/cp-kafka-rest:latest
+    image: confluentinc/cp-kafka-rest:5.2.2
     depends_on:
       - zookeeper
       - broker
@@ -111,7 +111,7 @@ services:
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center
+    image: confluentinc/cp-enterprise-control-center:5.2.2
     hostname: control-center
     container_name: control-center
     depends_on:
@@ -131,7 +131,7 @@ services:
       PORT: 9021
 
   ksql-server:
-    image: confluentinc/cp-ksql-server:5.0.0-beta30
+    image: confluentinc/cp-ksql-server:5.2.2
     hostname: ksql-server
     container_name: ksql-server
     depends_on:
@@ -151,7 +151,7 @@ services:
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
 
   ksql-cli:
-    image: confluentinc/cp-ksql-cli:5.0.0-beta30
+    image: confluentinc/cp-ksql-cli:5.2.2
     container_name: ksql-cli
     depends_on:
       - broker
